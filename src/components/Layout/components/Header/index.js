@@ -11,6 +11,9 @@ import {
     faGear,
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import routeConfig from '~/untils/config/routes';
+
 import Button from '~/components/Button';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
@@ -90,7 +93,11 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <img src={images.logo} alt="Tiktok" />
+                
+                <Link to={routeConfig.home} className={cx('logo-link')}>
+                    <img src={images.logo} alt="Tiktok" />
+                </Link>
+
                 <Search />
 
                 <div className={cx('action')}>
