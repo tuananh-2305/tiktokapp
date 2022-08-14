@@ -1,9 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDebounce } from '~/hooks';
-import {
-    faCircleXmark,
-    faSpinner,
-} from '@fortawesome/free-solid-svg-icons';
+import * as searchSevices from '~/apiServices/searchSevices';
+import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AccountItem from '~/components/Accountitem';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -11,6 +9,7 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { SearchIcon } from '~/components/Icons';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
+import { set } from 'react-hook-form';
 
 const cx = classNames.bind(styles);
 
@@ -22,35 +21,33 @@ function Search() {
 
     const debounced = useDebounce(searchValue, 500);
 
-    const inputRef = useRef()
+    const inputRef = useRef();
 
     useEffect(() => {
-        if(!debounced.trim()){
-            setSearchResult([])
+        if (!debounced.trim()) {
+            setSearchResult([]);
             return;
         }
 
-        setLoading(true)
+        const fetchApi = async () => {
+            setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false)
-            })
-            .catch(() => {
-                setLoading(false);
-            })
+            const result = await searchSevices.search(debounced);
+           
+            setSearchResult(result);
+            setLoading(false);
+        }
+        fetchApi()
         
     }, [debounced]);
     const handleClear = () => {
         setSearchValue('');
         setSearchResult([]);
         inputRef.current.focus();
-    }
+    };
     const handleHideResult = () => {
         setShowResult(false);
-    }
+    };
 
     return (
         <HeadlessTippy
@@ -69,18 +66,18 @@ function Search() {
             onClickOutside={handleHideResult}
         >
             <div className={cx('search')}>
-                <input 
+                <input
                     ref={inputRef}
                     value={searchValue}
-                    placeholder="Search accouts and videos" 
-                    spellCheck={false} 
-                    onChange={e => setSearchValue(e.target.value)} 
+                    placeholder="Search accouts and videos"
+                    spellCheck={false}
+                    onChange={(e) => setSearchValue(e.target.value)}
                     onFocus={() => setShowResult(true)}
                 />
                 {!!searchValue && !loading && (
                     <button className={cx('clear')} onClick={handleClear}>
-                    <FontAwesomeIcon icon={faCircleXmark} />
-                </button>
+                        <FontAwesomeIcon icon={faCircleXmark} />
+                    </button>
                 )}
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
