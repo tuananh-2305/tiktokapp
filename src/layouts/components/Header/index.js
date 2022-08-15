@@ -12,7 +12,7 @@ import {
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import routeConfig from '~/untils/config/routes';
+import config from '~/config';
 
 import Button from '~/components/Button';
 import classNames from 'classnames/bind';
@@ -96,7 +96,7 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 
-                <Link to={routeConfig.home} className={cx('logo-link')}>
+                <Link to={config.routes.home} className={cx('logo-link')}>
                     <img src={images.logo} alt="Tiktok" />
                 </Link>
 

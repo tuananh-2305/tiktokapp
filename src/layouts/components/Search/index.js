@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDebounce } from '~/hooks';
-import * as searchSevices from '~/apiServices/searchSevices';
+import * as searchSevices from '~/services/searchSevice';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AccountItem from '~/components/Accountitem';
