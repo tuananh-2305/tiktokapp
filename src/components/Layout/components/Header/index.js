@@ -31,11 +31,13 @@ const MENU_ITEMS = [
         children: {
             title: 'Language',
             data: [
-                {
+                {   
+                    type: 'language',
                     code: 'en',
                     title: 'English',
                 },
                 {
+                    type: 'language',
                     code: 'vi',
                     title: 'Tiếng Việt',
                 },
