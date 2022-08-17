@@ -16,7 +16,7 @@
         }
 
         .active-icon {
-            display: block;
+            display: flex;
         }
     }
 
@@ -30,7 +30,7 @@
 }
 
 .icon, .active-icon {
-    
+    display: flex;
 }
 
 .active-icon{
